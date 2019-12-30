@@ -17,7 +17,7 @@ jobs:
     - name: Install pkger
       run: go install github.com/markbates/pkger/cmd/pkger
     - name: Generate pkged file
-      run: pkger
+      run: $GOBIN/pkger
     - name: Build linux amd64
       run: GOOS=linux GOARCH=amd64 go build -v -o docgen_linux_amd64 .
     - name: Build macOS amd64
