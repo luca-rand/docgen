@@ -19,20 +19,13 @@ jobs:
       - name: Generate pkged file
         run: $(go env GOPATH)/bin/pkger
       - name: Build linux amd64
-        run: GOOS=linux GOARCH=amd64 go build -v -o docgen_linux_amd64 .
+        run: GOOS=linux GOARCH=amd64 go build -v -o builds/docgen_linux_amd64 .
       - name: Build macOS amd64
-        run: GOOS=darwin GOARCH=amd64 go build -v -o docgen_macos_amd64 .
+        run: GOOS=darwin GOARCH=amd64 go build -v -o builds/docgen_macos_amd64 .
       - name: Build windows amd64
-        run: GOOS=windows GOARCH=amd64 go build -v -o docgen_win_amd64.exe .
-      - name: Upload linux amd64 artifact
+        run: GOOS=windows GOARCH=amd64 go build -v -o builds/docgen_win_amd64.exe .
+      - name: Upload artifacts
         uses: actions/upload-artifact@v1.0.0
         with:
-          name: docgen_linux_amd64
-      - name: Upload macOS amd64 artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: docgen_macos_amd64
-      - name: Upload windows amd64 artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: docgen_win_amd64.exe
+          name: binaries
+          path: builds
