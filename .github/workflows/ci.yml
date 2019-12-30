@@ -6,34 +6,33 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Go 1.13
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.13
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
-    - name: Get dependencies
-      run: go mod download
-    - name: Install pkger
-      run: go install github.com/markbates/pkger/cmd/pkger
-    - name: Generate pkged file
-      run: $GOBIN/pkger
-    - name: Build linux amd64
-      run: GOOS=linux GOARCH=amd64 go build -v -o docgen_linux_amd64 .
-    - name: Build macOS amd64
-      run: GOOS=darwin GOARCH=amd64 go build -v -o docgen_macos_amd64 .
-    - name: Build windows amd64
-      run: GOOS=windows GOARCH=amd64 go build -v -o docgen_win_amd64.exe .
-    - name: Upload linux amd64 artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: docgen_linux_amd64
-    - name: Upload macOS amd64 artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: docgen_macos_amd64
-    - name: Upload windows amd64 artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: docgen_win_amd64.exe
-
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v1
+      - name: Get dependencies
+        run: go mod download
+      - name: Install pkger
+        run: go install github.com/markbates/pkger/cmd/pkger
+      - name: Generate pkged file
+        run: $(go env GOPATH)/bin/pkger
+      - name: Build linux amd64
+        run: GOOS=linux GOARCH=amd64 go build -v -o docgen_linux_amd64 .
+      - name: Build macOS amd64
+        run: GOOS=darwin GOARCH=amd64 go build -v -o docgen_macos_amd64 .
+      - name: Build windows amd64
+        run: GOOS=windows GOARCH=amd64 go build -v -o docgen_win_amd64.exe .
+      - name: Upload linux amd64 artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: docgen_linux_amd64
+      - name: Upload macOS amd64 artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: docgen_macos_amd64
+      - name: Upload windows amd64 artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: docgen_win_amd64.exe
